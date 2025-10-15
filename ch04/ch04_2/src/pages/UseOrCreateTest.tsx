@@ -6,9 +6,7 @@ export default function UseOrCreate() {
   // 전역변수를 이용하여 캐쉬기능 구현
   // prettier-ignore
   const headTexts = userOrCreate<string[]>('headTexts', function () {
-      return [
-        '#', 'Name', 'Job Title', 'Email Address'
-      ]
+      return ['#', 'Name', 'Job Title', 'Email Address']
     })
 
   const users = userOrCreate<D.IUser[]>('users', function () {

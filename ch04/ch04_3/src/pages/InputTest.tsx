@@ -1,6 +1,6 @@
 import {useState, useCallback} from 'react'
 import {Title} from '../components'
-import {ChangeEvent} from 'react'
+import type { ChangeEvent } from 'react'
 import {Input} from '../theme/daisyui'
 
 export default function InputTest() {
@@ -20,12 +20,12 @@ export default function InputTest() {
   )
   const onChangeChecked = useCallback(
     function (e: ChangeEvent<HTMLInputElement>) {
-      // checked = e.target.checked
-      // setChecked(function () {
-      //   return e.target.checked
-      // })
-      setChecked(notUsed => e.target.checked)
-      console.log(checked) // useCallback에서 checked 출력시에는 변하기전 값출력
+      const checked = e.target.checked
+      setChecked(function () {
+        return checked
+      })
+      // setChecked(notUsed => e.target.checked)
+      // console.log(checked) // useCallback에서 checked 출력시에는 변하기전 값출력
     },
     [checked]
   )
@@ -38,6 +38,7 @@ export default function InputTest() {
           type="text"
           value={value}
           onChange={onChangeValue}
+          className='px-1 py-0.5'
           style={{border: '1px solid black'}}
         />
         <Input

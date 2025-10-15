@@ -19,16 +19,11 @@ export default function HigherOrderRadioInputTest() {
   )
   const radioInputs = useMemo(
     () =>
+      // prettier-ignore
       jobTitles.map((value, index) => (
         <label key={index} className="flex justify-start cursor-pointer label">
-          <input
-            type="radio"
-            name="higherJobs"
-            className="mr-4 radio radio-primary"
-            checked={index === selectedIndex}
-            defaultValue={value}
-            onChange={onChange(index)}
-          />
+          <input type="radio" name="higherJobs" className="mr-4 radio radio-primary"
+            checked={index === selectedIndex} defaultValue={value} onChange={onChange(index)} />
           <span className="label-text">{value}</span>
         </label>
       )),
@@ -37,7 +32,7 @@ export default function HigherOrderRadioInputTest() {
 
   return (
     <section className="mt-4">
-      <Title>RadioInputTest</Title>
+      <Title>HighOrderRadioInputTest</Title>
       <div className="flex flex-col justify-center mt-4">
         <Subtitle>What is your job?</Subtitle>
         <Subtitle className="mt-4">Selected Job: {jobTitles[selectedIndex]} </Subtitle>

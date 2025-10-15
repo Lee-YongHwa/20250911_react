@@ -2,10 +2,11 @@ import type {FormEvent, ChangeEvent, ClipboardEvent} from 'react'
 import {useCallback, useState, useRef} from 'react'
 import {Title} from '../components'
 
-type FormType = {name: string; email: string}
+type FormType = {name: string; email: string; pass: string}
 
 export default function ObjectState() {
-  const [form, setForm] = useState<FormType>({name: '', email: ''})
+  // 여러개의 입력양식태그가 있더라도 FormType에 추가하면 별도 선언 없이 사용가능
+  const [form, setForm] = useState<FormType>({name: '', email: '', pass: ''})
   const refName = useRef<HTMLInputElement>(null)
   const refEmail = useRef<HTMLInputElement>(null)
   const onSubmit = useCallback(
@@ -51,7 +52,7 @@ export default function ObjectState() {
 
       // 복합실행문이란 while(true){ console.log('hello');console.log('world')}
       // 5) 콜백함수로 구현 : 간단하게
-      // 의존성 목록에 추가하지 않더라도 콜백함수를 통해서 값을 변경할 수 있도록 함.
+      // 의존성 목록에 추가하지 않더라도 콜백함수를 통해서 값을 변경(Closure현상)할 수 있도록 함.
       // setForm(form => { return {...form, name: e.target.value} }) //return을 반드시 사용
       /* ※ 복합실행문 : 중괄호 안에 order가 여러 개 if(condition) {order1; order2; order3;} */
       // setForm(form => {...form, name: e.target.value}) // 에러: return을 지우면 복합실행문으로 인식
@@ -70,7 +71,7 @@ export default function ObjectState() {
     },
     [form.email]
   )
-
+  // prettier-ignore
   return (
     <section className="mt-4">
       <Title>ObjectState</Title>
@@ -80,36 +81,18 @@ export default function ObjectState() {
             <label htmlFor="name" className="label">
               <span className="label-text">Username</span>
             </label>
-            <input
-              type="text"
-              className="input input-primary"
-              id="name"
-              ref={refName}
-              value={form.name}
-              onChange={onChangeName}
-              placeholder="enter your name"
-            />
+            <input type="text" className="input input-primary" id="name" ref={refName}
+              value={form.name} onChange={onChangeName} placeholder="enter your name" />
           </div>
           <div className="form-control">
             <label htmlFor="email" className="label">
               <span className="label-text">E-mail</span>
             </label>
-            <input
-              type="email"
-              className="input input-primary"
-              ref={refEmail}
-              id="email"
-              onChange={onChangeEmail}
-              value={form.email}
-              placeholder="enter your email"
-            />
+            <input type="email" className="input input-primary" ref={refEmail} id="email"
+              onChange={onChangeEmail} value={form.email} placeholder="enter your email" />
           </div>
           <div className="flex justify-center mt-4">
-            <input
-              type="submit"
-              value="Submit"
-              className="w-1/2 btn btn-sm btn-primary"
-            />
+            <input type="submit" value="Submit" className="w-1/2 btn btn-sm btn-primary" />
             <input defaultValue="Cancel" className="w-1/2 ml-4 btn btn-sm" />
           </div>
         </form>

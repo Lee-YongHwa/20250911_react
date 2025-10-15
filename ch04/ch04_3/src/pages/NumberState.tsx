@@ -5,24 +5,16 @@ import {Icon} from '../theme/daisyui'
 export default function NumberState() {
   const [count, setCount] = useState<number>(0)
 
-  // 방법0) function 으로 정의 퍼포먼스에 별로 좋지 않다.
+  // 방법1) 작동되긴 하나 function 으로 정의 퍼포먼스에 별로 좋지 않다.
   // const increment = function () {
   //   setCount(count + 1)
-  //   console.log('count: ', count)
   // }
+  // 방법1을 화살표 함수로 변환 :: 외부 상태값 참조, 병렬 업데이트시 충돌 가능성 있음. 비교적 동수 호출 없는 경우 사용
+  // const increment = () => setCount(count + 1)
 
-  // S :: 방법1) 방법0을 화살표 함수로 변환
-  // const increment = () => {
-  //   setCount(count + 1)
-  //   console.log('count: ', count)
-  // }
-
-  // ()=>S :: 방법2) setCount 매개변수를 함수로 지정
-  // const increment = () => {
-  //   setCount(count => count + 1)
-  //   console.log('count: ', count)
-  // }
-
+  // 방법2) setCount 매개변수를 함수로 지정 :: 함수형 업데이트, 콜스택을 활용하여 안전하게 누적 가능, 비교적 자주 변경될 때
+  // const increment = () => setCount(count => count + 1)
+  
   // useCallback을 사용하는 목적 : 위의 방법 1, 2는 리렌더링 될 때마다 새로 초기화가 된다.
   // 그런데 한번 만든 함수를 새로 선언한다고 해서 그 자체만으로도 부하가 생길일은 없지만,
   // 한번 만든 함수를 필요할 때만 새로 만들고 재사용하는 것은 성능에 중요한 문제다
@@ -46,19 +38,19 @@ export default function NumberState() {
   // 세터 함수를 호출하게 되고, 이때 세터함수가 반환한 값을 새로운 count값으로 설정하므로
   // 의존성 문제가 발생하지 않는다.
   // count의존성 목록에 없어도 값은 증가, 그러나 내부 count변수의 값을 변경되지 않는다.
-  const increment = useCallback(() => {
-    setCount(function (count) {
-      return count + 1
-    }) // 블럭 외에서 함수의 매개변수 형태로 호출하기에 변한다.
-    console.log('count inc: ', count) // 블럭 안에서 count변수를 호출해도 변화가 없다.
-  }, [])
+  // const increment = useCallback(() => {
+  //   setCount(function (count) {
+  //     return count + 1
+  //   }) // 블럭 외에서 함수의 매개변수 형태로 호출하기에 변한다. Closure현상
+  //   console.log('count inc: ', count) // 블럭 안에서 count변수를 호출해도 변화가 없다.
+  // }, [])
 
   // 방법6) useCallback 사용하면서 의존성 목록에 값이 있으면서 입력변수가 함수일 때는
   // 값이 증가하면서 내부 변수도 변경된다.
-  // const increment = useCallback(() => {
-  //   setCount(count => count + 1)
-  //   console.log('count inc: ', count)
-  // }, [count])
+  const increment = useCallback(() => {
+    setCount(count => count + 1)
+    console.log('count inc: ', count)
+  }, [count])
 
   const decrement = useCallback(() => {
     setCount(count => count - 1)

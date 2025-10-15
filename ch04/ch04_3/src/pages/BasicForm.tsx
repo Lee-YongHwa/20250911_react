@@ -2,6 +2,7 @@ import type {FormEvent, ChangeEvent, ClipboardEvent} from 'react'
 import {useCallback, useState, useRef} from 'react'
 import {Title} from '../components'
 export default function BasicForm() {
+  // 건건이 다 선언하여 사용하는 방식
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const refName = useRef<HTMLInputElement>(null)
@@ -53,7 +54,7 @@ export default function BasicForm() {
     // value:인코딩하려는 값, replace: 인코딩하길 원하는 프로퍼티가있는 배열 또는 함수, space: 공백문자수
     alert(JSON.stringify(json, null, 2))
   }
-
+  // prettier-ignore
   return (
     <section className="mt-4">
       <Title>BasicForm</Title>
@@ -63,39 +64,20 @@ export default function BasicForm() {
             <label htmlFor="name" className="label">
               <span className="label-text">Username</span>
             </label>
-            <input
-              type="text"
-              className="input input-primary"
-              ref={refName}
-              name="name"
-              id="name"
-              value={name}
-              onChange={onChangeName}
-              onPaste={onPasteName}
-              placeholder="enter your name"
-            />
+            <input type="text" className="input input-primary" ref={refName}
+              name="name" id="name" value={name} onChange={onChangeName}
+              onPaste={onPasteName} placeholder="enter your name" />
           </div>
           <div className="form-control">
             <label htmlFor="email" className="label">
               <span className="label-text">E-mail</span>
             </label>
-            <input
-              type="email"
-              className="input input-primary"
-              ref={refEmail}
-              name="email"
-              id="email"
-              value={email}
-              onChange={onChangeEmail}
-              placeholder="enter your email"
-            />
+            <input type="email" className="input input-primary" ref={refEmail}
+              name="email" id="email" value={email} onChange={onChangeEmail}
+              placeholder="enter your email" />
           </div>
           <div className="flex justify-center mt-4">
-            <input
-              type="submit"
-              value="Submit"
-              className="w-1/2 btn btn-sm btn-primary"
-            />
+            <input type="submit" value="Submit" className="w-1/2 btn btn-sm btn-primary" />
             <input defaultValue="Cancel" className="w-1/2 ml-4 btn btn-sm" />
           </div>
         </form>

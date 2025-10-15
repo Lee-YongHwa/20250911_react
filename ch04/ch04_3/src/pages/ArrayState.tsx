@@ -6,8 +6,8 @@ import * as D from '../data'
 export default function ArrayState() {
   const [images, setImages] = useState<string[]>([])
   const addImage = useCallback(
-    () => setImages(images => [D.randomImage(200, 100, 50), ...images]),
-    [images]
+    () => setImages(images => [D.randomImage(200, 100, 50), ...images]), //콜백 함수
+    [images] //의존성 목록
   )
   const clearImages = useCallback(() => setImages(notUsed => []), [])
   const children = useMemo(
