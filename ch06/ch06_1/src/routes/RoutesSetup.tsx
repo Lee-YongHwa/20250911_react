@@ -8,7 +8,7 @@ import Register from "../pages/Board/Register";
 import Login from "../pages/Login";
 import Join from "../pages/Join";
 
-export default function CopyMe() {
+export default function RoutesSetup() {
   return (
     <Routes>
       <Route index element={<Home />} />

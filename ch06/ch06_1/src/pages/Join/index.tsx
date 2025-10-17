@@ -86,7 +86,7 @@ function Join() {
             onChange={onChangeId} ref={idRef} value={form.id} /><br />
           <span className="inline-block mb-4 w-12">Pass:</span><input type="password" name="pass" className="input mb-4" 
             onChange={onChangePass} ref={passRef} value={form.pass} /><br />
-          <span className="inline-block mb-4 w-12">Pass:</span><input type="text" name="mobile" className="input mb-4" 
+          <span className="inline-block mb-4 w-12">Mobile:</span><input type="text" name="mobile" className="input mb-4" 
             onChange={onChangeMobile} ref={mobileRef} value={form.mobile} /><br />
           <span className="inline-block mb-4 w-12">Birth:</span><input type="date" name="birth" className="input mb-4" 
             onChange={onChangeBirth} ref={birthRef} value={form.birth} /><br />
