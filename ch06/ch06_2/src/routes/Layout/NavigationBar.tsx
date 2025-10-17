@@ -10,6 +10,7 @@ export default function NavigationBar() {
       <Link to="/board/list" className="btn btn-link">Board list</Link>
       <Link to="/landing" className="btn btn-link">Landing</Link>
       <Link to="/landing/main" className="btn btn-link">Landing main</Link>
+      <Link to="/login" className="btn btn-link">Login</Link>
     </div>
   )
 }

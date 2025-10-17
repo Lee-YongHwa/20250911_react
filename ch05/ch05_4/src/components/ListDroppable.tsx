@@ -1,15 +1,24 @@
-import type {FC} from 'react'
-import {useRef} from 'react'
-import type {DivProps} from './Div'
-import {useDrop} from 'react-dnd'
+// components/ListDroppable.tsx
+import type { ReactNode } from 'react'
+import { useDroppable } from '@dnd-kit/core'
 
-export type ListDroppableProps = DivProps & {}
+interface ListDroppableProps {
+  children: ReactNode
+  className?: string
+  id?: string // 기본값: 'board'
+}
 
-export const ListDroppable: FC<ListDroppableProps> = ({...props}) => {
-  const divRef = useRef<HTMLDivElement>(null)
-  const [, drop] = useDrop({
-    accept: 'list'
+export function ListDroppable({ children, className, id = 'board' }: ListDroppableProps) {
+  const { setNodeRef, isOver } = useDroppable({
+    id, // 이 droppable 영역의 고유 ID
   })
-  drop(divRef)
-  return <div ref={divRef} {...props} />
+
+  return (
+    <div
+      ref={setNodeRef}
+      className={`${className ?? ''} ${isOver ? 'bg-blue-50' : ''}`}
+    >
+      {children}
+    </div>
+  )
 }

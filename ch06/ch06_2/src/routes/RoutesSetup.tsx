@@ -7,8 +7,9 @@ import Board from '../pages/Board'
 export default function RoutesSetup() {
   return (
     <Routes>
-      {/* 중첩 라우터(nested router) */}
+      {/* 중첩 라우터(nested router) 와 index */}
       <Route path="/" element={<Layout />}>
+        <Route index element={<LandingPage />} />
         <Route path="/*" element={<NoMatch />} />
       </Route>
       <Route path="/landing" element={<Layout />}>
