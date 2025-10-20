@@ -15,6 +15,7 @@ npm install tailwindcss @tailwindcss/postcss postcss
 npm install tailwindcss @tailwindcss/cli
 npm i -D daisyui@latest
 
+# about Redux...
 # npm i redux @reduxjs/toolkit react-redux
 # npm i redux-logger
 # npm i -D @types/redux-logger
