@@ -21,26 +21,12 @@ function Join() {
   })
   const [error, setError] = useState<string | null>(null)
 
-  const onChangeName = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setForm(prev => ({...prev, name: e.target.value}))
-    setError(null)
-  }, [])
-  const onChangeId = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setForm(prev => ({...prev, id: e.target.value}))
-    setError(null)
-  }, [])
-  const onChangePass = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setForm(prev => ({...prev, pass: e.target.value}))
-    setError(null)
-  }, [])
-  const onChangeMobile = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setForm(prev => ({...prev, mobile: e.target.value}))
-    setError(null)
-  }, [])
-  const onChangeBirth = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setForm(prev => ({...prev, birth: e.target.value}))
-    setError(null)
-  }, [])
+  const changed = useCallback(
+    (key: string) => (e: ChangeEvent<HTMLInputElement>) => {
+      setForm(obj => ({...obj, [key]: e.target.value}))
+    },
+    []
+  )
 
   const onSubmit = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
@@ -81,15 +67,15 @@ function Join() {
         {/* prettier-ignore */}
         <form action="/join" onSubmit={onSubmit} ref={formRef}>
           <span className="inline-block mb-4 w-12">이름:</span><input type="text" name="name" className="input mb-4" 
-            onChange={onChangeName} ref={nameRef} value={form.name} /><br />
+            onChange={changed('name')} ref={nameRef} value={form.name} /><br />
           <span className="inline-block mb-4 w-12">ID:</span><input type="text" name="id" className="input mb-4" 
-            onChange={onChangeId} ref={idRef} value={form.id} /><br />
+            onChange={changed('id')} ref={idRef} value={form.id} /><br />
           <span className="inline-block mb-4 w-12">Pass:</span><input type="password" name="pass" className="input mb-4" 
-            onChange={onChangePass} ref={passRef} value={form.pass} /><br />
+            onChange={changed('pass')} ref={passRef} value={form.pass} /><br />
           <span className="inline-block mb-4 w-12">Mobile:</span><input type="text" name="mobile" className="input mb-4" 
-            onChange={onChangeMobile} ref={mobileRef} value={form.mobile} /><br />
+            onChange={changed('mobile')} ref={mobileRef} value={form.mobile} /><br />
           <span className="inline-block mb-4 w-12">Birth:</span><input type="date" name="birth" className="input mb-4" 
-            onChange={onChangeBirth} ref={birthRef} value={form.birth} /><br />
+            onChange={changed('birth')} ref={birthRef} value={form.birth} /><br />
           {error && (
             <p style={{ color: 'red', marginTop: '0.5rem' }}>{error}</p>
           )}

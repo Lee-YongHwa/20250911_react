@@ -17,14 +17,12 @@ function Login() {
   const [error, setError] = useState<string | null>(null)
 
   // 4) 속성의 값을 반영하기 위한 이벤트 함수 선언
-  const onChangeId = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setForm(prev => ({...prev, id: e.target.value}))
-    setError(null)
-  }, [])
-  const onChangePass = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setForm(prev => ({...prev, pass: e.target.value}))
-    setError(null)
-  }, [])
+  const changed = useCallback(
+    (key: string) => (e: ChangeEvent<HTMLInputElement>) => {
+      setForm(obj => ({...obj, [key]: e.target.value}))
+    },
+    []
+  )
 
   //5) 유효성 검사 및 전송
   const onSubmit = useCallback(
@@ -55,7 +53,7 @@ function Login() {
               type="text"
               name="id"
               className="input mb-4"
-              onChange={onChangeId}
+              onChange={changed('id')}
               ref={idRef}
             />
           </div>
@@ -65,13 +63,11 @@ function Login() {
               type="password"
               name="pass"
               className="input mb-4"
-              onChange={onChangePass}
+              onChange={changed('pass')}
               ref={passRef}
             />
           </div>
-          <div className="h-8">
-            {error && <p style={{color: 'red'}}>{error}</p>}
-          </div>
+          <div className="h-8">{error && <p style={{color: 'red'}}>{error}</p>}</div>
           <button type="submit" className="btn btn-primary">
             Register
           </button>
