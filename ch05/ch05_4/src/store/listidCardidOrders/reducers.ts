@@ -14,17 +14,17 @@ export const reducer = (state: T.State = initialState, action: T.Actions) => {
     }
 
     case '@listidCardids/prependCardid': {
-      const cardids = state[action.payload.listid]
+      const cardids = state[action.payload.listid] ?? []
       return {...state, [action.payload.listid]: [action.payload.cardid, ...cardids]}
     }
 
     case '@listidCardids/appendCardid': {
-      const cardids = state[action.payload.listid]
+      const cardids = state[action.payload.listid] ?? []
       return {...state, [action.payload.listid]: [...cardids, action.payload.cardid]}
     }
 
     case '@listidCardids/removeCardid': {
-      const cardids = state[action.payload.listid]
+      const cardids = state[action.payload.listid] ?? []
       return {
         ...state,
         [action.payload.listid]: cardids.filter(id => id !== action.payload.cardid)

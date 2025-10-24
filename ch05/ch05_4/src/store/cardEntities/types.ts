@@ -1,3 +1,5 @@
+//카드 생성을 위한 타입 선언
+
 import type {Action} from 'redux'
 import type {Card, UUID} from '../commonTypes'
 export * from '../commonTypes'

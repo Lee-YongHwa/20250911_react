@@ -7,8 +7,19 @@
 // store/selectors.ts
 import {createSelector} from '@reduxjs/toolkit'
 import type {AppState} from './AppState'
+import type {UUID, Card} from '../store/commonTypes'
 
 export const selectLists = createSelector(
   [(state: AppState) => state.listidOrders, (state: AppState) => state.listEntities],
   (listidOrders, listEntities) => listidOrders.map(uuid => listEntities[uuid])
 )
+
+const EMPTY: string[] = []
+export const selectCardsByListId = (listid: UUID) =>
+  createSelector(
+    [
+      (state: AppState) => state.cardEntities,
+      (state: AppState) => state.listidCardidOrders[listid] || EMPTY
+    ],
+    (cardEntities, cardIds): Card[] => cardIds.map(id => cardEntities[id])
+  )
